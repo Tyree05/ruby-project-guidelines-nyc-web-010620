@@ -2,7 +2,7 @@
 def ProgrammerChoice
     prompt = TTY::Prompt.new
     prompt.ask('Create a username:')
-    d = gets.chomp
+    d => gets.chomp
     Programmer.create(name: d)
 end
 
