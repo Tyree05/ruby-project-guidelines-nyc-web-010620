@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20200123144825) do
   end
 
   create_table "projects", force: :cascade do |t|
+    t.string  "project_name"
     t.integer "client_id"
     t.integer "programmer_id"
   end
