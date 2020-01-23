@@ -1,8 +1,8 @@
 
 
 
-client1 = Client.create(name: "Jonathan")
-client2 = Client.create(name: "Harry")
+ client1 = Client.create(name: "Jonathan")
+ client2 = Client.create(name: "Harry")
 client3 = Client.create(name: "Natasha")
 client4 = Client.create(name: "John")
 client5 = Client.create(name: "Robert")
@@ -33,10 +33,13 @@ programmer7 = Programmer.create(name: "Rebecca")
 programmer8 = Programmer.create(name: "Marcus")
 programmer9 = Programmer.create(name: "Ashley")
 programmer10 = Programmer.create(name: "Bryan")
-# programmer11 = Programmer.create(name: "Steven")
+programmer11 = Programmer.create(name: "Steven")
 programmer12= Programmer.create(name: "Meghan")
 
 
-project1 = Project.create(client_id: client1.id,programmer_id: programmer3.id)
-project2 = Project.create(client_id: client2.id,programmer_id: programmer5.id)
-project3 = Project.create(client_id: client3.id,programmer_id: programmer6.id)
+project1 = Project.create(project_name: "Corporate Project", client_id: client1.id, programmer_id: programmer3.id)
+project2 = Project.create(project_name: "Mobile Banking Project", client_id: client3.id, programmer_id: programmer4.id)
+project3 = Project.create(project_name: "Faraday", client_id: client4.id, programmer_id: programmer6.id)
+project4 = Project.create(project_name: "Borg", client_id: client1.id, programmer_id: programmer7.id)
+project5 = Project.create(project_name: "Turing", client_id: client6.id, programmer_id: programmer3.id)
+project6 = Project.create(project_name: "Lovelace", client_id: client1.id, programmer_id: programmer3.id)
