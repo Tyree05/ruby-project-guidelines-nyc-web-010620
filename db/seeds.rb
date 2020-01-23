@@ -33,7 +33,7 @@ programmer7 = Programmer.create(name: "Rebecca")
 programmer8 = Programmer.create(name: "Marcus")
 programmer9 = Programmer.create(name: "Ashley")
 programmer10 = Programmer.create(name: "Bryan")
-programmer11 = Programmer.create(name: "Steven")
+# programmer11 = Programmer.create(name: "Steven")
 programmer12= Programmer.create(name: "Meghan")
 
 
