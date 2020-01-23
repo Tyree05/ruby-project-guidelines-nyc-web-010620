@@ -1,10 +1,13 @@
 
 def ProgrammerChoice
     prompt = TTY::Prompt.new
-    if (prompt.ask('Create a username:') == "exit!")
+    mt = prompt.ask('Create a username:')
+    if (mt == "exit!")
         return prompt_user
     else
+
     Programmer.create(name: prompt.ask('Create a username:'))
+    Programmer.create(name: mt)
     system("clear")
     puts "Creation successful"
     puts "(press enter to return to main screen)"
