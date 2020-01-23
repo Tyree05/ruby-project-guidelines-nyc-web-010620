@@ -8,7 +8,6 @@ def prompt_user
   
   prompt = TTY::Prompt.new
   prompt.select('What would you like to do today?') do |menu|
-      menu.choice 'Login', -> { system("clear") }
       menu.choice 'Sign Up', -> { SignUp_choice()}
     
   end
