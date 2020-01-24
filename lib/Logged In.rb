@@ -1,16 +1,16 @@
-def ViewProject(object)
-    if Programmer.find_by(name: object.name)
+def ViewProject(person)
+    if Programmer.find_by(name: person.name)
         #  && Project.find_by(programmer_id: object.id) == true
         puts "Found it. Your current projects are:"
-        t = Project.all.select { |project| project.programmer_id == object.id}
-        t.each do |project|
+        coder_projects = Project.all.select { |project| project.programmer_id == person.id}
+        coder_projects.each do |project|
             puts "#{project.project_name}"
         end
-    elsif Client.find_by(name: object.name) 
+    elsif Client.find_by(name: person.name) 
         #&& Client.find_by(client_id: object.id)
-        c = Project.all.select { |project| project.client_id == object.id }
+        my_projects = Project.all.select { |project| project.client_id == person.id }
         puts "Found it. Your current projects are:"
-        c.each do |project|
+        my_projects.each do |project|
             puts "#{project.project_name}"
         end
     else
@@ -19,38 +19,34 @@ def ViewProject(object)
     end
 end
 
-def DeleteProject(object)
+def DeleteProject(person)
     prompt = TTY::Prompt.new
-    if Programmer.find_by(name: object.name)
-        goku = Programmer.find_by(name: object.name)
+    if Programmer.find_by(name: person.name)
         #  && Project.find_by(programmer_id: object.id) == true
-        puts "Found it. Your current projects are:"
-        t = Project.all.select { |project| project.programmer_id == goku.id}
+        coder_projects = Project.all.select { |project| project.programmer_id == person.id}
         # binding.pry
-        f = prompt.select('Select a project') { |menu|
-            t.each do |ar| 
+        project_select = prompt.select('Select a project') { |menu|
+            coder_projects.each do |ar| 
               menu.choice "#{ar.project_name}",ar
         #       binding.pry
             end
-            menu.choice 'exit', -> { Login_Programmer(goku.name) }
+            menu.choice 'exit', -> { Login_Programmer(person.name) }
         }
-        if(prompt.yes?("Are sure you want to delete #{f.project_name}"))
-            f.destroy
+        if(prompt.yes?("Are sure you want to delete #{project_select.project_name}"))
+            project_select.destroy
         end
-    elsif Client.find_by(name: object.name) 
-        vegeta = Client.find_by(name: object.name)
+    elsif Client.find_by(name: person.name)
         #&& Client.find_by(client_id: object.id)
-        c = Project.all.select { |project| project.client_id == vegeta.id }
-        puts "Found it. Your current projects are:"
-        f2 = prompt.select('Select a project') { |menu|
-            c.each do |ar| 
+        my_projects = Project.all.select { |project| project.client_id == person.id }
+        project_select = prompt.select('Select a project') { |menu|
+            my_projects.each do |ar| 
               menu.choice "#{ar.project_name}",ar
         #       binding.pry
             end
             menu.choice 'exit', -> { Login_Client(vegeta.name) }
         }
-        if(prompt.yes?("Are sure you want to delete #{f2.project_name}"))
-            f2.destroy
+        if(prompt.yes?("Are sure you want to delete #{project2_updt.project_name}?"))
+            project2_updt.destroy
         end
     else
         system("clear")
@@ -65,43 +61,51 @@ def DeleteProject(object)
 
 end
 
-def UpdateProNm(object)
+def UpdateProNm(person)
     prompt = TTY::Prompt.new
-    if Programmer.find_by(name: object.name)
-        goku = Programmer.find_by(name: object.name)
+     if Programmer.find_by(name: person.name)
         puts "Found it. Your current projects are:"
-        t = Project.all.select { |project| project.programmer_id == goku.id}
-        # binding.pry
-        f = prompt.select('Select a project') { |menu|
-            t.each do |ar| 
+        current_projects = Project.all.select { |project| project.programmer_id == object.id}
+        project2_updt = prompt.select('Select a project to update:') { |menu|
+            current_projects.each do |ar| 
               menu.choice "#{ar.project_name}",ar
-        #       binding.pry
             end
-            menu.choice 'exit', -> { Login_Programmer(goku.name) }
+            menu.choice 'exit', -> { Login_Programmer(person.name) }
         }
-        chaotzu = prompt.ask('What the new name for your project')
-        if(prompt.yes?("Are sure you want to change the name from #{f.project_name} to #{chaotzu}"))
-            f.project_name = tien
-         end
-    elsif Client.find_by(name: object.name) 
-        vegeta = Client.find_by(name: object.name)
-        #&& Client.find_by(client_id: object.id)
-        c = Project.all.select { |project| project.client_id == vegeta.id }
-        puts "Found it. Your current projects are:"
-        f2 = prompt.select('Select a project') { |menu|
-            c.each do |ar| 
-              menu.choice "#{ar.project_name}",ar
-        #       binding.pry
-            end
-            menu.choice 'exit', -> { Login_Client(vegeta.name) }
-        }
-        tien = prompt.ask('What the new name for your project')
-        if(prompt.yes?("Are sure you want to change the name from #{f2.project_name} to #{tien}"))
-            f2.project_name = tien
-            f2.save
+        nw_project_name = prompt.ask('What the new name for your project')
+        if(prompt.yes?("Are sure you want to change the name from #{project2_updt.project_name} to #{nw_project_name}"))
+            project2_updt.project_name = nw_project_name
+            project2_updt.save
         end
-    else
+     elsif Client.find_by(name: person.name)
+        #&& Client.find_by(client_id: object.id)
+        my_projects = Project.all.select { |project| project.client_id == person.id }
+        project2_updt = prompt.select('Select a project') { |menu|
+            my_projects.each do |ar| 
+              menu.choice "#{ar.project_name}",ar
+            end
+            menu.choice 'exit', -> { Login_Client(person.name) }
+        }
+        nw_project_name = prompt.ask('What the new name for your project')
+        if(prompt.yes?("Are sure you want to change the name from #{project2_updt.project_name} to #{nw_project_name}"))
+            project2_updt.project_name = nw_project_name
+            project2_updt.save
+        end
+     else
         system("clear")
         puts "name not found"
+    end
+end
+
+def ViewAllProjects(person)
+    prompt = TTY::Prompt.new
+    selected_project = prompt.select('Here are all the projects:') { |menu|
+        Project.all.each do |sing_project|
+            menu.choice "#{sing_project.project_name}",sing_project      
+        end
+    }
+    if (prompt.yes?('Do you want join this project?'))
+        selected_project.programmer_id = person.id
+        selected_project.save
     end
 end

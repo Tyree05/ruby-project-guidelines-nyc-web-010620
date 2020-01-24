@@ -9,10 +9,10 @@ end
 #////////////////////////////////////////Loginscreen/////////////////////////////////////////////////////////////////
 def Programmer_Loginscreen
     prompt = TTY::Prompt.new
-    l = prompt.ask('Please enter Username')
-    if Programmer.find_by(name: l)
+    username = prompt.ask('Please enter Username')
+    if Programmer.find_by(name: username)
         system("clear")
-        Login_Programmer(l)
+        Login_Programmer(username)
     else
         puts "Name not found"
         Programmer_Loginscreen()
@@ -21,10 +21,10 @@ end
 
 def Client_Loginscreen
     prompt = TTY::Prompt.new
-    l = prompt.ask('Please enter Username')
-    if Client.find_by(name: l)
+    username = prompt.ask('Please enter Username')
+    if Client.find_by(name: username)
        system("clear")
-       Login_Client(l)
+       Login_Client(username)
     else
         puts "Name not found"
         Client_Loginscreen()
@@ -33,16 +33,16 @@ end
 
 #////////////////////////////////////////Logged In/////////////////////////////////////////////////////////////////
 
-def Login_Client(inpu)
-    var = Client.find_by(name: inpu)
+def Login_Client(name)
+    current_client = Client.find_by(name: name)
     system("clear")
-    puts "Welcome #{var.name}"
+    puts "Welcome #{current_client.name}"
     prompt = TTY::Prompt.new
     prompt.select('What would you like to do today?') do |menu|
-        menu.choice 'Delete project', -> {DeleteProject(var) }
+        menu.choice 'Delete project', -> {DeleteProject(current_client) }
         menu.choice 'Create project', -> {CreateProject}
-        menu.choice 'View projects', -> {ViewProject(var)}
-        menu.choice 'Update Project Name', -> {UpdateProNm(var)}
+        menu.choice 'My projects', -> {ViewProject(current_client)}
+        menu.choice 'Update Project Name', -> {UpdateProNm(current_client)}
         menu.choice 'Exit', -> {system("clear")}
       
     end
@@ -51,14 +51,15 @@ def Login_Client(inpu)
 end
 
 
-def Login_Programmer(input)
-    var = Programmer.find_by(name: input)
+def Login_Programmer(name)
+    current_programmer = Programmer.find_by(name: name)
     system("clear")
-    puts "Welcome #{var.name}"
+    puts "Welcome #{current_programmer.name}"
     prompt = TTY::Prompt.new
     prompt.select('What would you like to do today?') do |menu|
-        menu.choice 'Delete project', -> { DeleteProject(var) }
-        menu.choice 'View projects', -> { ViewProject(var) }
+        menu.choice 'Delete project', -> { DeleteProject(current_programmer) }
+        menu.choice 'View current projects', -> { ViewProject(current_programmer) }
+        menu.choice 'View all Projects', -> {ViewAllProjects(current_programmer)}
         menu.choice 'Exit', -> {system("clear")}
       
     end
