@@ -1,11 +1,11 @@
 def ViewProject(person)
     if Programmer.find_by(name: person.name)
-        #  && Project.find_by(programmer_id: object.id) == true
         puts "Found it. Your current projects are:"
         coder_projects = Project.all.select { |project| project.programmer_id == person.id}
         coder_projects.each do |project|
             puts "#{project.project_name}"
         end
+
     elsif Client.find_by(name: person.name) 
         #&& Client.find_by(client_id: object.id)
         my_projects = Project.all.select { |project| project.client_id == person.id }
@@ -13,10 +13,12 @@ def ViewProject(person)
         my_projects.each do |project|
             puts "#{project.project_name}"
         end
+
     else
         system("clear")
         puts "name not found"
     end
+
 end
 
 def DeleteProject(person)
